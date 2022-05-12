@@ -1,7 +1,7 @@
 /*
  * Author: Brian Banfield
  * Date: 1/13/2022
- * Program calculates income
+ * Program calculates income status
  */
 
 package cop2805;
