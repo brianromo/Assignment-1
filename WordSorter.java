@@ -7,54 +7,22 @@
 package wordSorter;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Scanner;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import javax.swing.text.Document;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 
-public class WordSorter implements Runnable {
-	private final Scanner scanner;
+public class WordSorter {
+
 	private Map<String, Long> sharedCounter;
-
-	public WordSorter(Scanner scanner, Map<String, Long> sharedCounter) {
-		this.scanner = scanner;
-		this.sharedCounter = sharedCounter;
-	}
-
-	public void run() {
-		if(scanner == null) {
-			return;
-		}
-
-		while(scanner.hasNext()) {
-			String word = scanner.next().toUpperCase();
-			word = word.replaceAll("[^A-Z]", "");
-			Long v = sharedCounter.get(word);
-
-			if (v == null)
-				v = sharedCounter.put(word, 1l);
-			else {
-				sharedCounter.put(word, v + 1);
-			}
-		}
-	}
-
-
+	
 	public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
 		List<Entry<K, V>> list = new ArrayList<>(map.entrySet());
 		list.sort(Collections.reverseOrder(Map.Entry.comparingByValue()));
@@ -109,5 +77,6 @@ public class WordSorter implements Runnable {
 		}
 	}
 } 
+
 
 
